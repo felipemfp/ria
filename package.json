@@ -12,10 +12,16 @@
     "recharts": "^1.0.0-beta.10",
     "styled-components": "^3.2.1"
   },
+  "devDependencies": {
+    "gh-pages": "^1.1.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "eject": "react-scripts eject",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d build"
+  },
+  "homepage" : "https://felipemfp.github.io/ria"
 }
