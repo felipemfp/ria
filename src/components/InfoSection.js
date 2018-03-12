@@ -9,10 +9,10 @@ const InfoSection = () => {
     <Section>
       <Container>
         <Columns>
-          <Column isSize='1/2'>
+          <Column isSize='1/3'>
             <DatasetList />
           </Column>
-          <Column isSize='1/2'>
+          <Column isSize='2/3'>
             <DatasetDetail />
           </Column>
         </Columns>
