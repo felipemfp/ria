@@ -1,11 +1,12 @@
 import React from 'react'
-import { Section, Title, Subtitle, Container, Heading } from 'bloomer'
+import { Section, Title, Subtitle, Container, Heading, Notification } from 'bloomer'
 
-const Prediction = ({title}) => {
+const Prediction = ({title, color, data}) => {
   return (
-    <Container>
+    <Notification isColor={color} hasTextAlign='centered'>
       <Title isSize={6}>{title}</Title>
-    </Container>
+      <Title isSize={1}>{data}</Title>
+    </Notification>
   )
 }
 

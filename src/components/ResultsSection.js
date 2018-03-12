@@ -8,13 +8,13 @@ const ResultsSection = () => {
       <Container>
         <Columns>
           <Column isSize='1/3'>
-            <Prediction title="Tendem a serem aprovados" />
+            <Prediction color="success" title="Tendem a serem aprovados" data={3251} />
           </Column>
           <Column isSize='1/3'>
-            <Prediction title="Tendem a serem reprovados" />
+            <Prediction color="warning" title="Tendem a serem reprovados" data={854} />
           </Column>
           <Column isSize='1/3'>
-            <Prediction title="Tendem a evadirem" />
+            <Prediction color="danger" title="Tendem a evadirem" data={199} />
           </Column>
         </Columns>
       </Container>
