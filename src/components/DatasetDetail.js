@@ -1,39 +1,77 @@
-import React from 'react'
-import { Section, Title, Subtitle, Container, Table } from 'bloomer'
+import React, {Component, Fragment} from 'react'
+import * as d3 from 'd3'
+import { Section, Title, Subtitle, Container, Table, Tag, Pagination, Page, PageLink, PageControl, PageEllipsis, PageList } from 'bloomer'
 
-const data = [
-  ['Ryu Paiva', '87,2', '25', 'R$ 3000,00', '85,62', '74%'],
-  ['Ken Nascimento', '64,2', '3', 'R$ 1333,00', '63,03', '91%'],
-  ['Akuma Silva', '72,2', '11', 'R$ 16200,00', '61,96', '87%']
-]
 
-const DatasetDetail = () => {
-  return (
-    <div>
-      <Title isSize={4}>Resumo</Title>
-      <Subtitle isSize={6}>Este é o resumo do conjunto de dados escolhido</Subtitle>
+import {PER_PAGE} from '../constants'
+
+
+class DatasetDetail extends Component {
+  state = {
+    isLoading: true,
+    data: null,
+    limit: PER_PAGE,
+    offset: 0
+  }
+
+  loadData = ({dataset}) => {
+    if (!dataset) return
+
+    this.setState({isLoading: true})
+
+    d3.text(dataset.url, (err, raw) => {
+      const dsv = d3.dsvFormat(';')
+      this.setState({data: dsv.parse(raw), isLoading: false})
+    })
+  }
+
+  componentDidMount() {
+    this.loadData(this.props)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.loadData(nextProps)
+  }
+
+  render() {
+    const {data, isLoading, offset, limit} = this.state
+    const {dataset} = this.props
+
+    return (
       <div>
-        <Table isStriped isNarrow style={{width: "100%"}}>
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Média Final</th>
-              <th>Faltas</th>
-              <th>Renda</th>
-              <th>Coeficiente</th>
-              <th>Frequência</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map(arr => <tr>{arr.map(v => <td>{v}</td>)}</tr>)}
-            {data.map(arr => <tr>{arr.map(v => <td>{v}</td>)}</tr>)}
-            {data.map(arr => <tr>{arr.map(v => <td>{v}</td>)}</tr>)}
-            {data.map(arr => <tr>{arr.map(v => <td>{v}</td>)}</tr>)}
-          </tbody>
-        </Table>
+        <Title isSize={4}>Resumo</Title>
+        <Subtitle isSize={6}>
+          Este é o resumo do conjunto de dados escolhido
+          {dataset && <Tag>{dataset.name}</Tag>}
+        </Subtitle>
+        <div>
+          {isLoading
+            ? 'Loading...'
+            : <Fragment>
+                <Table isStriped isNarrow style={{width: "100%"}}>
+                  <thead>
+                    <tr>
+                      {data.columns.slice(0, 5).map(column => <th>{column}</th>)}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {data.slice(offset, limit).map(item => (
+                      <tr>
+                        {data.columns.slice(0, 5).map(column => <td>{item[column]}</td>)}
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+                <Pagination>
+                    <PageControl disabled={offset <= 0} onClick={() => offset > 0 && this.setState({offset: offset-PER_PAGE, limit: offset})}>Anterior</PageControl>
+                    <PageControl isNext onClick={() => this.setState({offset: limit, limit: limit+PER_PAGE})}>Próxima</PageControl>
+                </Pagination>
+              </Fragment>
+          }
+        </div>
       </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default DatasetDetail
