@@ -8,7 +8,7 @@ import ChartsSection from './components/ChartsSection'
 import InfoSection from './components/InfoSection'
 import ResultsSection from './components/ResultsSection'
 
-class App extends Component {
+class Root extends Component {
   render() {
     return (
       <main>
@@ -26,4 +26,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default Root
