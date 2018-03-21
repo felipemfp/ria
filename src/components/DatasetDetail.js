@@ -10,6 +10,12 @@ class DatasetDetail extends Component {
     offset: 0
   }
 
+  componentWillReceiveProps(nextProps, nextContext) {
+    if (nextContext.data === null) {
+      this.setState({limit: PER_PAGE, offset: 0})
+    }
+  }
+
   render() {
     const {offset, limit} = this.state
     const {data} = this.context
@@ -27,13 +33,23 @@ class DatasetDetail extends Component {
                 <Table isStriped isNarrow style={{width: "100%"}}>
                   <thead>
                     <tr>
-                      {data.columns.slice(0, 5).map((column, idx) => <th key={idx}>{column}</th>)}
+                      <th>Matrícula</th>
+                      <th>MF</th>
+                      <th>I.R.A.</th>
+                      <th>Frequência</th>
+                      <th>TF</th>
+                      <th>Renda</th>
                     </tr>
                   </thead>
                   <tbody>
                     {data.slice(offset, limit).map((item, idx) => (
                       <tr key={idx}>
-                        {data.columns.slice(0, 5).map((column, idx) => <td key={idx}>{item[column]}</td>)}
+                        <td>{item.matricula}</td>
+                        <td>{item.mediaFinal}</td>
+                        <td>{item.coefRendimento}</td>
+                        <td>{item.frequencia}</td>
+                        <td>{item.faltas}</td>
+                        <td>R$ {item.renda.toFixed(2)}</td>
                       </tr>
                     ))}
                   </tbody>

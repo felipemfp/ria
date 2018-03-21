@@ -1,5 +1,11 @@
 export const PER_PAGE = 10
 
+export const CLASSIFICATION = { 
+  APPROVED: 1,
+  REPROVED: 2,
+  DROPOUT: 3
+}
+
 export const DATASETS = {
     GERAL: 'geral',
     FIC: 'fic',

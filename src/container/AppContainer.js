@@ -7,8 +7,9 @@ import ChartsSection from '../components/ChartsSection'
 import InfoSection from '../components/InfoSection'
 import ResultsSection from '../components/ResultsSection'
 
-import {DATASETS} from '../constants'
+import {DATASETS, CLASSIFICATION} from '../constants'
 import {datasets} from '../data'
+import {classifier} from '../data/classifier'
 
 
 const initialState = {
@@ -54,14 +55,41 @@ class AppContainer extends Component {
     
     d3.text(datasets[selectedDataset].url, (err, raw) => {
       const dsv = d3.dsvFormat(';')
-      this.setState({data: dsv.parse(raw)}, this.analyzeData.bind(this))
+      this.setState({data: dsv.parse(raw, d => {
+        return {
+          matricula: d.Matricula,
+          mediaFinal: +d.Media_Final,
+          faltas: +d.Faltas,
+          renda: +d.Renda,
+          coefRendimento: +d.CoefRendimento,
+          frequencia: +d.Frequencia
+        }
+      })}, this.analyzeData.bind(this))
     })
   }
 
   analyzeData = () => {
     const {data} = this.state
 
-    // magic goes here
+    const results = data.reduce((results, item, idx) => {
+      const classification = classifier(item)
+
+      if (classification === CLASSIFICATION.DROPOUT) {
+        results.dropout.push(idx)
+      } else if (classification === CLASSIFICATION.REPROVED) {
+        results.reproved.push(idx)
+      } else {
+        results.approved.push(idx)
+      }
+
+      return results
+    }, {
+      approved: [],
+      reproved: [],
+      dropout: []
+    });
+
+    this.setState({...results});
   }
 
   render() {
