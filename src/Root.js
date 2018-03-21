@@ -4,22 +4,14 @@ import 'bulma/css/bulma.css'
 
 import Header from './components/Header'
 import Footer from './components/Footer'
-import ChartsSection from './components/ChartsSection'
-import InfoSection from './components/InfoSection'
-import ResultsSection from './components/ResultsSection'
+import AppContainer from './container/AppContainer'
 
 class Root extends Component {
   render() {
     return (
       <main>
         <Header />
-
-        <InfoSection />
-
-        <ResultsSection />
-
-        <ChartsSection />
-        
+        <AppContainer />
         <Footer />
       </main>
     )

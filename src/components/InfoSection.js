@@ -1,40 +1,35 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import { Section, Title, Subtitle, Container, Columns, Column } from 'bloomer'
 
 import DatasetList from './DatasetList'
 import DatasetDetail from './DatasetDetail'
 
-import {datasets} from '../data'
-
 class InfoSection extends Component {
-  state = {
-    selectedDataset: datasets["Geral"][0]
-  }
-
-  handleDatasetSelected = (dataset) => {
-    this.setState({
-      selectedDataset: dataset
-    })
-  }
-
   render() {
-    const {selectedDataset} = this.state
+    const {selectedDataset, data} = this.context
+    const {handleDatasetSelected, datasets} = this.props
 
     return (
       <Section>
         <Container>
           <Columns>
             <Column isSize='1/3'>
-              <DatasetList selected={selectedDataset} data={datasets} handleSelect={this.handleDatasetSelected} />
+              <DatasetList selected={selectedDataset} data={datasets} handleSelected={handleDatasetSelected} />
             </Column>
             <Column isSize='2/3'>
-              <DatasetDetail dataset={selectedDataset} />
+              <DatasetDetail />
             </Column>
           </Columns>
         </Container>
       </Section>
     )
   }
+}
+
+InfoSection.contextTypes = {
+  selectedDataset: PropTypes.string,
+  data: PropTypes.array
 }
 
 export default InfoSection

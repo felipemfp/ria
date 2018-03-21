@@ -1,63 +1,39 @@
 import React, {Component, Fragment} from 'react'
-import * as d3 from 'd3'
+import PropTypes from 'prop-types'
 import { Section, Title, Subtitle, Container, Table, Tag, Pagination, Page, PageLink, PageControl, PageEllipsis, PageList } from 'bloomer'
-
 
 import {PER_PAGE} from '../constants'
 
-
 class DatasetDetail extends Component {
   state = {
-    isLoading: true,
-    data: null,
     limit: PER_PAGE,
     offset: 0
   }
 
-  loadData = ({dataset}) => {
-    if (!dataset) return
-
-    this.setState({isLoading: true})
-
-    d3.text(dataset.url, (err, raw) => {
-      const dsv = d3.dsvFormat(';')
-      this.setState({data: dsv.parse(raw), isLoading: false})
-    })
-  }
-
-  componentDidMount() {
-    this.loadData(this.props)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.loadData(nextProps)
-  }
-
   render() {
-    const {data, isLoading, offset, limit} = this.state
-    const {dataset} = this.props
+    const {offset, limit} = this.state
+    const {data} = this.context
 
     return (
       <div>
         <Title isSize={4}>Resumo</Title>
         <Subtitle isSize={6}>
           Este é o resumo do conjunto de dados escolhido
-          {dataset && <Tag>{dataset.name}</Tag>}
         </Subtitle>
         <div>
-          {isLoading
+          {data === null
             ? 'Loading...'
             : <Fragment>
                 <Table isStriped isNarrow style={{width: "100%"}}>
                   <thead>
                     <tr>
-                      {data.columns.slice(0, 5).map(column => <th>{column}</th>)}
+                      {data.columns.slice(0, 5).map((column, idx) => <th key={idx}>{column}</th>)}
                     </tr>
                   </thead>
                   <tbody>
-                    {data.slice(offset, limit).map(item => (
-                      <tr>
-                        {data.columns.slice(0, 5).map(column => <td>{item[column]}</td>)}
+                    {data.slice(offset, limit).map((item, idx) => (
+                      <tr key={idx}>
+                        {data.columns.slice(0, 5).map((column, idx) => <td key={idx}>{item[column]}</td>)}
                       </tr>
                     ))}
                   </tbody>
@@ -72,6 +48,10 @@ class DatasetDetail extends Component {
       </div>
     )
   }
+}
+
+DatasetDetail.contextTypes = {
+  data: PropTypes.array
 }
 
 export default DatasetDetail

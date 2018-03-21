@@ -1,7 +1,26 @@
 import React, {Fragment} from 'react'
 import { Section, Title, Subtitle, Container, Menu, MenuLabel, MenuList, MenuLink } from 'bloomer'
 
-const DatasetList = ({selected, data, handleSelect}) => {
+import {DATASET_GROUPS} from '../constants'
+
+
+const LinkList = ({data, datasets, selected, handleSelected}) => {
+  return (
+    <MenuList>
+    {data.map(datasetId => (
+      <li key={datasetId}>
+        <MenuLink
+          isActive={selected === datasetId}
+          onClick={() => handleSelected(datasetId)}>
+          {datasets[datasetId].name}
+        </MenuLink>
+      </li>
+    ))}
+    </MenuList>
+  )
+}
+
+const DatasetList = ({data, ...props}) => {
   return (
     <div>
       <Title isSize={4}>Datasets</Title>
@@ -9,18 +28,10 @@ const DatasetList = ({selected, data, handleSelect}) => {
 
       <div>
       <Menu>
-        {Object.keys(data).map(label => {
-          return (
-            <Fragment>
-              <MenuLabel>{label}</MenuLabel>
-              <MenuList>
-                {data[label].map(dataset => {
-                  return <li><MenuLink isActive={selected && dataset.id === selected.id} onClick={() => handleSelect(dataset)}>{dataset.name}</MenuLink></li>
-                })}
-              </MenuList>
-            </Fragment>
-          )
-        })}
+        <MenuLabel>Geral</MenuLabel>
+        <LinkList data={DATASET_GROUPS.GERAL} datasets={data} {...props} />
+        <MenuLabel>Específicos</MenuLabel>
+        <LinkList data={DATASET_GROUPS.ESPECIFICOS} datasets={data} {...props} />
       </Menu>
       </div>
     </div>
