@@ -1,8 +1,13 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import styled from 'styled-components'
 import { Section, Title, Button, Icon, Subtitle, Container, Heading, Notification, Modal, ModalBackground, ModalContent, ModalCard, ModalCardBody, ModalCardHeader, ModalCardTitle, Delete } from 'bloomer'
 
 import PaginatedTable from './PaginatedTable'
+
+const ClickableNotification = styled(Notification)`
+  cursor: pointer;
+`
 
 class Prediction extends Component {
 
@@ -17,12 +22,12 @@ class Prediction extends Component {
     
     return (
       <div>
-        <Notification isColor={color} hasTextAlign="centered" onClick={() => this.setState({isModalActive: true})}>
+        <ClickableNotification isColor={color} hasTextAlign="centered" onClick={() => this.setState({isModalActive: true})}>
           <Title isSize={6}>
             {title}
           </Title>
           <Title isSize={1}>{data ? data.length : 'Loading...'}</Title>
-        </Notification>
+        </ClickableNotification>
         {data && <Modal isActive={isModalActive}>
           <ModalBackground />
           <ModalCard>

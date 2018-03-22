@@ -14,10 +14,10 @@ class InfoSection extends Component {
       <Section>
         <Container>
           <Columns>
-            <Column isSize='1/3'>
+            <Column isSize='1/4'>
               <DatasetList selected={selectedDataset} data={datasets} handleSelected={handleDatasetSelected} />
             </Column>
-            <Column isSize='2/3'>
+            <Column isSize='3/4'>
               <DatasetDetail />
             </Column>
           </Columns>
