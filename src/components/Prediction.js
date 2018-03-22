@@ -26,7 +26,7 @@ class Prediction extends Component {
           <Title isSize={6}>
             {title}
           </Title>
-          <Title isSize={1}>{data ? data.length : 'Loading...'}</Title>
+          <Title isSize={1}>{data ? data.length : 'Carregando...'}</Title>
         </ClickableNotification>
         {data && <Modal isActive={isModalActive}>
           <ModalBackground />

@@ -23,7 +23,7 @@ class PaginatedTable extends Component {
     return (
       <div>
         {data === null
-          ? 'Loading...'
+          ? 'Carregando...'
           : <Fragment>
               <Table isStriped isNarrow style={{width: '100%'}}>
                 <thead>

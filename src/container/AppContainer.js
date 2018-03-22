@@ -7,7 +7,7 @@ import ChartsSection from '../components/ChartsSection'
 import InfoSection from '../components/InfoSection'
 import ResultsSection from '../components/ResultsSection'
 
-import {DATASETS, CLASSIFICATION} from '../constants'
+import {DATASETS, CLASSIFICATION, MINIMUM_WAGE} from '../constants'
 import {datasets} from '../data'
 import {classifier} from '../data/classifier'
 
@@ -61,6 +61,7 @@ class AppContainer extends Component {
           mediaFinal: +d.Media_Final,
           faltas: +d.Faltas,
           renda: +d.Renda,
+          salarios: Math.floor(+d.Renda/MINIMUM_WAGE),
           coefRendimento: +d.CoefRendimento,
           frequencia: +d.Frequencia,
           sexo: d.Sexo ? d.Sexo.toUpperCase() : ''
