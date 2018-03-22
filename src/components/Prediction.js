@@ -50,7 +50,7 @@ class Prediction extends Component {
                   value: 'faltas'
                 }, {
                   label: 'Renda',
-                  rendered: (item, key) => <td key={key}>R$ {item.renda.toFixed(2)}</td>
+                  renderer: (item, key) => <td key={key}>R$ {item.renda.toFixed(2)}</td>
                 }]}
               />
             </ModalCardBody>
