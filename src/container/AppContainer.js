@@ -62,7 +62,8 @@ class AppContainer extends Component {
           faltas: +d.Faltas,
           renda: +d.Renda,
           coefRendimento: +d.CoefRendimento,
-          frequencia: +d.Frequencia
+          frequencia: +d.Frequencia,
+          sexo: d.Sexo ? d.Sexo.toUpperCase() : ''
         }
       })}, this.analyzeData.bind(this))
     })
