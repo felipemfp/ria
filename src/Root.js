@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Container, Columns, Column, Box } from 'bloomer'
 import 'bulma/css/bulma.css'
 
 import Header from './components/Header'

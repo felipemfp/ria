@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
-import { Section, Title, Subtitle, Container, Columns, Column } from 'bloomer'
+import { Section, Container, Columns, Column } from 'bloomer'
 
 import DatasetList from './DatasetList'
 import DatasetDetail from './DatasetDetail'
 
 class InfoSection extends Component {
   render() {
-    const {selectedDataset, data} = this.context
-    const {handleDatasetSelected, datasets} = this.props
+    const {selectedDataset} = this.context
+    const {handleDatasetSelected, datasets, filters, filtersData, handleFilterChanged} = this.props
 
     return (
       <Section>
@@ -18,7 +18,7 @@ class InfoSection extends Component {
               <DatasetList selected={selectedDataset} data={datasets} handleSelected={handleDatasetSelected} />
             </Column>
             <Column isSize='3/4'>
-              <DatasetDetail />
+              <DatasetDetail filters={filters} filtersData={filtersData} handleFilterChanged={handleFilterChanged} />
             </Column>
           </Columns>
         </Container>

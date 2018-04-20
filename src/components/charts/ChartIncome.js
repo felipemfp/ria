@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ChartContainer from './ChartContainer'
-import { Section, Title, Subtitle, Container, Columns, Heading, Column, Box } from 'bloomer'
-import {BarChart, LineChart, Line, Bar, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, ResponsiveContainer} from 'recharts'
+import { Heading } from 'bloomer'
+import { BarChart, Bar, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 
 const getDataByRenda = (dataset, results) => {
   const data = {}

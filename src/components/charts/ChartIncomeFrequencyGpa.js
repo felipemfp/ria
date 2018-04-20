@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ChartContainer from './ChartContainer'
-import { Section, Title, Subtitle, Container, Columns, Heading, Column, Box } from 'bloomer'
-import {BarChart, LineChart, Line, Bar, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, ResponsiveContainer} from 'recharts'
+import { Heading } from 'bloomer'
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 
 const precisionRound = (number, precision) => {
   const factor = Math.pow(10, precision);

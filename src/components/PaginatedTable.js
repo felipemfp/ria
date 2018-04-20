@@ -1,8 +1,7 @@
 import React, {Component, Fragment} from 'react'
-import PropTypes from 'prop-types'
-import { Section, Title, Subtitle, Container, Table, Tag, Pagination, Page, PageLink, PageControl, PageEllipsis, PageList } from 'bloomer'
+import { Table, Pagination, PageControl } from 'bloomer'
 
-import {PER_PAGE} from '../constants'
+import { PER_PAGE } from '../constants'
 
 class PaginatedTable extends Component {
   state = {
@@ -47,7 +46,7 @@ class PaginatedTable extends Component {
               </Table>
               <Pagination>
                   <PageControl disabled={offset <= 0} onClick={() => offset > 0 && this.setState({offset: offset-PER_PAGE, limit: offset})}>Anterior</PageControl>
-                  <PageControl isNext onClick={() => this.setState({offset: limit, limit: limit+PER_PAGE})}>Próxima</PageControl>
+                  <PageControl disabled={limit >= data.length} isNext onClick={() => limit < data.length && this.setState({offset: limit, limit: limit+PER_PAGE})}>Próxima</PageControl>
               </Pagination>
             </Fragment>
         }

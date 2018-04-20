@@ -1,5 +1,5 @@
 import React from 'react'
-import { Hero, HeroHeader, HeroBody, Container, Title } from 'bloomer'
+import { Hero, HeroBody, Container, Title } from 'bloomer'
 
 const Header = () => {
   return (

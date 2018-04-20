@@ -15,9 +15,30 @@ import {classifier} from '../data/classifier'
 const initialState = {
   selectedDataset: DATASETS.GERAL,
   data: null,
+  filters: {
+    anoLetivo: null,
+    sexo: null,
+    tipoEscolaOrigem: null,
+    etnia: null 
+  },
+  filtersData: {
+    anoLetivo: null,
+    sexo: null,
+    tipoEscolaOrigem: null,
+    etnia: null 
+  },
   approved: null,
   reproved: null,
   dropout: null,
+}
+
+
+const filter = (data, key, value) => {
+  if (!value) return data
+
+  console.log("filter", key, value)
+
+  return data.filter(item => item[key] === value)
 }
 
 
@@ -27,10 +48,26 @@ class AppContainer extends Component {
     ...initialState
   }
 
+  getFilteredData() {
+    const { filters } = this.state
+    let { data } = this.state
+
+    console.log(filters)
+
+    data = filter(data, "anoLetivo", filters.anoLetivo)
+    data = filter(data, "sexo", filters.sexo)
+    data = filter(data, "etnia", filters.etnia)
+    data = filter(data, "tipoEscolaOrigem", filters.tipoEscolaOrigem)
+    
+    console.log(data)
+
+    return data
+  }
+
   getChildContext() {
     return {
       selectedDataset: this.state.selectedDataset,
-      data: this.state.data,
+      data: this.getFilteredData(),
       results: {
         approved: this.state.approved,
         reproved: this.state.reproved,
@@ -64,14 +101,46 @@ class AppContainer extends Component {
           salarios: Math.floor(+d.Renda/MINIMUM_WAGE),
           coefRendimento: +d.CoefRendimento,
           frequencia: +d.Frequencia,
-          sexo: d.Sexo ? d.Sexo.toUpperCase() : ''
+          sexo: d.Sexo ? d.Sexo.toUpperCase() : '',
+          etnia: d.Etnia,
+          tipoEscolaOrigem: d.Tipo_Escola_Origem,
+          anoLetivo: d.AnoLetivo || d['Ano Letivo'],
         }
-      })}, this.analyzeData.bind(this))
+      })}, () => {
+        this.collectFiltersData()
+        this.analyzeData()
+      })
+    })
+  }
+
+  collectFiltersData = () => {
+    const { data } = this.state
+
+    const values = data.reduce((obj, item) => {
+      obj.anoLetivo.push(item.anoLetivo)
+      obj.sexo.push(item.sexo)
+      obj.tipoEscolaOrigem.push(item.tipoEscolaOrigem)
+      obj.etnia.push(item.etnia)
+      return obj
+    }, {
+      anoLetivo: [],
+      sexo: [],
+      tipoEscolaOrigem: [],
+      etnia: [] 
+    })
+
+    this.setState({
+      filtersData: {
+        anoLetivo: Array.from(new Set(values.anoLetivo)),
+        sexo: Array.from(new Set(values.sexo)),
+        tipoEscolaOrigem: Array.from(new Set(values.tipoEscolaOrigem)),
+        etnia: Array.from(new Set(values.etnia))
+      }
     })
   }
 
   analyzeData = () => {
-    const {data} = this.state
+    const data = this.getFilteredData()
 
     const results = data.reduce((results, item, idx) => {
       const classification = classifier(item)
@@ -89,15 +158,37 @@ class AppContainer extends Component {
       approved: [],
       reproved: [],
       dropout: []
-    });
+    })
 
     this.setState({...results});
   }
 
+  handleFilterChanged = (key, value) => {
+    const {filters} = this.state
+
+    this.setState({
+      filters: {
+        ...filters,
+        [key]: value
+      },
+      approved: [],
+      reproved: [],
+      dropout: []
+    }, this.analyzeData.bind(this))
+  }
+
   render() {
+    const { filters, filtersData } = this.state
+
     return (
       <Fragment>
-        <InfoSection datasets={datasets} handleDatasetSelected={this.handleDatasetSelected.bind(this)} />
+        <InfoSection
+          datasets={datasets}
+          filters={filters}
+          filtersData={filtersData}
+          handleFilterChanged={this.handleFilterChanged.bind(this)}
+          handleDatasetSelected={this.handleDatasetSelected.bind(this)}
+        />
         <ResultsSection />
         <ChartsSection />
       </Fragment>

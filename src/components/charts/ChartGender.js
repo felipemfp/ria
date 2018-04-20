@@ -1,8 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import ChartContainer from './ChartContainer'
-import { Section, Title, Subtitle, Container, Columns, Heading, Column, Box } from 'bloomer'
-import {BarChart, LineChart, Line, Bar, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell, ResponsiveContainer} from 'recharts'
+import { Heading } from 'bloomer'
+import { BarChart, Bar, ReferenceLine, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts'
 
 const getCountByGender = (data, dataset) => {
   return data.reduce((count, index) => {
@@ -15,7 +15,7 @@ const getCountByGender = (data, dataset) => {
   }, {M: 0, F: 0})
 }
 
-const ChartGender = ({title},{results, data: dataset}) => {
+const ChartGender = ({title}, {results, data: dataset}) => {
   const data = dataset && results.approved && results.reproved && results.dropout ? [
     {name: 'Aprovação', ...getCountByGender(results.approved, dataset)},
     {name: 'Reprovação', ...getCountByGender(results.reproved, dataset)},

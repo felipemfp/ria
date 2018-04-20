@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { Section, Title, Button, Icon, Subtitle, Container, Heading, Notification, Modal, ModalBackground, ModalContent, ModalCard, ModalCardBody, ModalCardHeader, ModalCardTitle, Delete } from 'bloomer'
+import { Title, Notification, Modal, ModalBackground, ModalCard, ModalCardBody, ModalCardHeader, ModalCardTitle, Delete } from 'bloomer'
 
 import PaginatedTable from './PaginatedTable'
 

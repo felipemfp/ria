@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Section, Title, Subtitle, Container, Columns, Column } from 'bloomer'
+import { Section, Container, Columns, Column } from 'bloomer'
 import Prediction from './Prediction'
 
 const ResultsSection = (props, {results}) => {

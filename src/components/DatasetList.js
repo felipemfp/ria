@@ -1,5 +1,5 @@
-import React, {Fragment} from 'react'
-import { Section, Title, Subtitle, Container, Menu, MenuLabel, MenuList, MenuLink } from 'bloomer'
+import React from 'react'
+import { Title, Subtitle, Menu, MenuLabel, MenuList, MenuLink } from 'bloomer'
 
 import {DATASET_GROUPS} from '../constants'
 

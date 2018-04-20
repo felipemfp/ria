@@ -1,7 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import styled from 'styled-components'
-import { Section, Title, Subtitle, Container, Columns, Heading, Column, Box } from 'bloomer'
+import { Section, Title, Subtitle, Container, Columns, Column, Box } from 'bloomer'
 
 import ChartGeneral from './charts/ChartGeneral'
 import ChartGender from './charts/ChartGender'
