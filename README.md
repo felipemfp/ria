@@ -41,6 +41,7 @@ npm start
 - [D3.js](https://d3js.org/)
 - [Bulma](https://bulma.io/)
 - [Bloomer](https://bloomer.js.org)
+- [Recharts](http://recharts.org)
 
 ## Authors
 
